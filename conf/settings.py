@@ -47,6 +47,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+
+    #local
+    'api.apps.ApiConfig',
+    'chats.apps.ChatsConfig',
+    'rooms.apps.RoomsConfig',
 ]
 
 MIDDLEWARE = [
