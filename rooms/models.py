@@ -4,4 +4,3 @@ from django.db import models
 
 class Room(models.Model):
     chats = models.JSONField(default=[])
-    users = models.ForeignKey()
