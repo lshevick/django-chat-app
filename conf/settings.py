@@ -25,7 +25,11 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'django-chat-app-lshevick.herokuapp.com',
+]
 
 
 # Application definition
@@ -52,6 +56,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'chats.apps.ChatsConfig',
     'rooms.apps.RoomsConfig',
+    'frontend.apps.FrontendConfig',
 ]
 
 MIDDLEWARE = [
@@ -140,6 +145,10 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+REACT_APP_DIR = os.path.join(BASE_DIR, 'frontend/static')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'frontend/static/build/static'),)
 
 
 SITE_ID = 1
