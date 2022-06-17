@@ -1,36 +1,70 @@
 import ChatForm from './ChatForm';
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 
 function handleError(err) {
     console.warn(err);
 }
 
-const Homescreen = () => {
+const Homescreen = ({setAuth}) => {
+    const [chats, setChats] = useState([]);
     const [rooms, setRooms] = useState([]);
-    const [currentRoom, setCurrentRoom] = useState({name: 'Pick a room'});
+    const [newRoom, setNewRoom] = useState('');
+    const [currentRoom, setCurrentRoom] = useState({ name: 'Pick a room' });
 
+
+    // this useEffect displays all of the avaliable rooms on page load
     useEffect(() => {
-      const getRooms = async () => {
-        const response = await fetch('/api/v1/rooms/').catch(handleError);
+        const getRooms = async () => {
+            const response = await fetch('/api/v1/rooms/').catch(handleError);
 
-        if(!response.ok) {
-            throw new Error('Network response is not ok')
-        }
-        
-        const json = await response.json();
-        setRooms(json);
+            if (!response.ok) {
+                throw new Error('Network response is not ok')
+            }
+
+            const json = await response.json();
+            setRooms(json);
         }
         getRooms();
     }, [])
 
+    const getChats = async (room) => {
+        const response = await fetch(`/api/v1/rooms/${room}/chats`).catch(handleError);
+
+        if (!response.ok) {
+            throw new Error('Network response not ok');
+        }
+
+        const json = await response.json();
+        setChats(json);
+    }
+
 
     const roomsHTML = rooms.map(room => (
         <li key={room.id}>
-            <button type='button' onClick={() => setCurrentRoom(room)}>{room.name}</button>
+            <button type='button' onClick={() => { setCurrentRoom(room); getChats(room.id) }}>{room.name}</button>
         </li>
     ))
 
+
+    const chatsHTML = chats.map(chat => (
+        <li key={chat.id}>
+            <span>{chat.username}</span>
+            <p>{chat.text}</p>
+        </li>
+    ))
+
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        // const options = {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'X-'
+        //     }
+        // }
+
+    }
 
     return (
 
@@ -47,30 +81,24 @@ const Homescreen = () => {
                 <ul className='room-list'>
                     {roomsHTML}
                 </ul>
+                <div>
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="new-room">Create a Room</label>
+                        <input name='new-room' id='new-room' value={newRoom} type="text" onChange={(e) => setNewRoom(e.target.value)} />
+                        <button type='submit'>Add Room</button>
+                    </form>
+                </div>
+                <button type='button' onClick={() => setAuth(false)}>Logout</button>
             </div>
             <div className='chat-room-display'>
                 <h2>{currentRoom.name}</h2>
                 <div className="message-list">
                     <ul>
-                        <li>
-                            <p>Author of message</p>
-                            <span>1:42pm</span>
-                            <p>text content of message</p>
-                        </li>
-                        <li>
-                            <p>Author of message</p>
-                            <span>1:43pm</span>
-                            <p>text content of message</p>
-                        </li>
-                        <li>
-                            <p>Author of message</p>
-                            <span>1:55pm</span>
-                            <p>text content of message</p>
-                        </li>
+                        {chatsHTML}
                     </ul>
                 </div>
 
-                <ChatForm />
+                <ChatForm currentRoom={currentRoom} chats={chats} setChats={setChats} />
 
             </div>
         </div>

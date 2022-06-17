@@ -92,7 +92,7 @@ function App() {
 
   return (
     <>
-      {auth ? <Homescreen/> : <LoginView setAuth={setAuth} />}
+      {auth ? <Homescreen setAuth={setAuth}/> : <LoginView setAuth={setAuth} />}
     </>
   );
 }

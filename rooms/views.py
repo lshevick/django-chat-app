@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
 
 from .models import Room
 from .serializers import RoomSerializer
@@ -12,6 +12,8 @@ class RoomListAPIView(generics.ListCreateAPIView):
 
 class RoomChatListAPIView(generics.ListCreateAPIView):
     serializer_class = ChatSerializer
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def get_queryset(self):
         room = self.kwargs['room']
         return Chat.objects.filter(room=room)
@@ -23,3 +25,4 @@ class RoomChatListAPIView(generics.ListCreateAPIView):
 class ChatDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
