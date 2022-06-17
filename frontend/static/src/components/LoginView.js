@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Cookies from "js-cookie";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
@@ -8,7 +7,7 @@ const LoginView = ({ setAuth }) => {
 
     return (
         <div className="login-view">
-            <h1>Chat App</h1>
+            <h1>Homebase Chatrooms</h1>
             {screen === 'login' && <LoginForm setScreen={setScreen} setAuth={setAuth} />}
             {screen === 'register' && <RegisterForm setScreen={setScreen} />}
         </div>
