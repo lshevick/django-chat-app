@@ -1,5 +1,6 @@
 import ChatForm from './ChatForm';
 import { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 
 function handleError(err) {
     console.warn(err);
@@ -39,6 +40,18 @@ const Homescreen = ({setAuth}) => {
     }
 
 
+    // this is here to update the chat rooms when someone is sending messages and someone else is in the same chat room,
+    // it updates state every 3 seconds so either person can see each others messages in real-ish time
+
+    // useEffect(() => {
+    //     const id = setInterval(() => {
+    //         getChats(currentRoom.id)
+
+    //     }, 3000)
+    //     return () => clearInterval(id)
+    // }, [chats])
+
+
     const roomsHTML = rooms.map(room => (
         <li key={room.id}>
             <button type='button' onClick={() => { setCurrentRoom(room); getChats(room.id) }}>{room.name}</button>
@@ -53,16 +66,26 @@ const Homescreen = ({setAuth}) => {
         </li>
     ))
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // const options = {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'X-'
-        //     }
-        // }
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+            body: JSON.stringify({name: newRoom}),
+        }
+
+        const response = await fetch('/api/v1/rooms/', options).catch(handleError);
+
+        if(!response.ok) {
+            throw new Error('Network response not ok')
+        }
+
+        const json = await response.json()
+        setRooms([...rooms, json])
 
     }
 
