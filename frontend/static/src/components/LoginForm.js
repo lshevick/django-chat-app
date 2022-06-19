@@ -48,9 +48,9 @@ const LoginForm = ({ setAuth, setScreen }) => {
         <form onSubmit={handleSubmit}>
             <div className='flex flex-col justify-center items-center w-full'>
                 <label htmlFor="username"></label>
-                <input className='m-2 p-1 bg-slate-200 text-slate-600 rounded-md' placeholder='Username' name='username' type="text" value={state.username} id='username' required onChange={handleInput} />
+                <input className='m-2 p-1 bg-slate-200 text-slate-600 rounded-md shadow-md' placeholder='Username' name='username' type="text" value={state.username} id='username' required onChange={handleInput} />
                 <label htmlFor="password"></label>
-                <input className='m-2 p-1 bg-slate-200 text-slate-600 rounded-md' placeholder='Password' name='password' type="password" value={state.password} id='password' required onChange={handleInput} />
+                <input className='m-2 p-1 bg-slate-200 text-slate-600 rounded-md shadow-md' placeholder='Password' name='password' type="password" value={state.password} id='password' required onChange={handleInput} />
             <button type='submit' className='bg-green-700 hover:bg-emerald-600 mt-2 w-1/4 rounded-md shadow-md p-1 text-white'>Login</button>
             </div>
         </form>

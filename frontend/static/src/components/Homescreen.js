@@ -2,6 +2,7 @@ import { BsChevronLeft } from 'react-icons/bs'
 import ChatForm from './ChatForm';
 import { useEffect, useState, useRef } from "react";
 import Cookies from 'js-cookie';
+import ChatDetail from './ChatDetail';
 
 function handleError(err) {
     console.warn(err);
@@ -61,13 +62,9 @@ const Homescreen = ({ setAuth }) => {
         </li>
     ))
 
-
     const chatsHTML = chats.map(chat => (
-        <li key={chat.id} className='bg-blue-500 my-3 p-2 rounded-md'>
-            <span className='font-bold text-white [text-shadow:1px_1px_2px_#333]'>{chat.username}</span>
-            <p>{chat.text}</p>
-        </li>
-    ))
+        <ChatDetail key={chat.id} {...chat} currentRoom={currentRoom} setChats={setChats} chats={chats} />
+        ))
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -139,11 +136,11 @@ const Homescreen = ({ setAuth }) => {
             </div>
 
 
-            <div className={`overflow-hidden chat-room-display bg-slate-700 h-[90%] relative bottom-0 text-white px-2 py-5 flex flex-col justify-end transition-all duration-500 ${isOpen ? 'blur z-[-10]' : ''}`}>
+            <div className={`chat-room-display lg:w-1/2 lg:mx-auto overflow-hidden bg-slate-700 h-[90%] relative bottom-0 text-white px-2 py-5 flex flex-col justify-end transition-all duration-500 ${isOpen ? 'blur z-[-10]' : ''}`}>
                 <h2 className='mx-1 absolute top-0 p-2 text-xl font-extrabold [text-shadow:1px_1px_2px_#333] text-emerald-700 bg-slate-600 rounded-md'>{currentRoom.name}</h2>
                 <div className="message-list overflow-y-scroll h-5/6">
                     <ul>
-                       {chatsHTML}
+                        {chatsHTML}
                     </ul>
                        <div className='h-20' ref={dummy}></div>
                 </div>

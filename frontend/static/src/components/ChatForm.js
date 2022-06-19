@@ -38,10 +38,10 @@ const ChatForm = ({ currentRoom, chats, setChats, dummy }) => {
     }
 
     return (
-        <div className='message-form'>
-            <form onSubmit={handleChatSubmit}>
+        <div className='message-form w-full'>
+            <form onSubmit={handleChatSubmit} className='md:float-right w-full'>
                 <label htmlFor="chat"></label>
-                <input className='bg-slate-600 p-1' name='text' value={text} id='text' type="text" onChange={handleInput} placeholder='Send a message...' />
+                <input className='bg-slate-600 p-1 w-5/6' name='text' value={text} id='text' type="text" onChange={handleInput} placeholder='Send a message...' />
                 <button type='submit' className='bg-emerald-700 m-2 p-3 rounded-md hover:text-emerald-500 hover:bg-emerald-200 hover:rounded-2xl transition-all'> <BsFillCursorFill/> </button>
             </form>
 
