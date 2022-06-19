@@ -119,7 +119,7 @@ const Homescreen = ({ setAuth }) => {
         <div className={`h-screen flex flex-col justify-end ${isOpen ? 'transparent' : 'bg-slate-700'}`}>
             <div className='room-list-display absolute w-full top-0'>
                 <div className='sidebar-banner bg-slate-700 flex justify-between border-b-2 border-zinc-600 py-3'>
-                    <h1 className='mx-2 py-1 text-xl font-extrabold [text-shadow:1px_3px_2px_#333] text-emerald-700'>Homebase Rooms</h1>
+                    <h1 className='mx-2 py-1 text-xl font-extrabold [text-shadow:1px_2px_2px_#333] text-emerald-700'>Homebase Rooms</h1>
                     <button type='button' className={`m-1 p-2 bg-slate-500 border-2 border-slate-400 transition-all rounded-3xl ${isOpen ? 'rotate-180' : ''}`} onClick={() => setIsOpen(!isOpen)}> <BsChevronLeft/> </button>
                 </div>
                 <div className={`bg-slate-700 transition-all duration-300 py-2 ${isOpen ? 'translate-x-0 z-10' : 'translate-x-full opacity-0'}`}>
