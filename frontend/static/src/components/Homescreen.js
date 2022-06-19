@@ -63,7 +63,7 @@ const Homescreen = ({ setAuth }) => {
     ))
 
     const chatsHTML = chats.map(chat => (
-        <ChatDetail key={chat.id} {...chat} currentRoom={currentRoom} setChats={setChats} chats={chats} />
+        <ChatDetail key={chat.id} {...chat} currentRoom={currentRoom} setChats={setChats} chats={chats} getChats={getChats} />
         ))
 
     const handleSubmit = async (e) => {

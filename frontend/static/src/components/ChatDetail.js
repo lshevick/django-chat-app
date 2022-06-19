@@ -8,7 +8,7 @@ function handleError(err) {
     console.warn(err);
 }
 
-const ChatDetail = ({ id, text, username, currentRoom, setChats, chats }) => {
+const ChatDetail = ({ id, text, username, currentRoom, setChats, chats, getChats }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [newText, setNewText] = useState(text)
 
@@ -47,6 +47,24 @@ const ChatDetail = ({ id, text, username, currentRoom, setChats, chats }) => {
         setIsEditing(false);
     }
 
+    const deleteText = async (id) => {
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+        }
+
+        const response = await fetch(`/api/v1/rooms/${currentRoom.id}/chats/${id}/`, options).catch(handleError);
+
+        if(!response.ok) {
+            throw new Error('Network response not ok');
+        }
+
+        getChats(currentRoom.id)
+    }
+
 
 
     const chatsHTML = (
@@ -55,7 +73,7 @@ const ChatDetail = ({ id, text, username, currentRoom, setChats, chats }) => {
                 <span className='font-bold inline-block text-white [text-shadow:1px_1px_2px_#333]'>{username}</span>
                 <div className="button-div absolute top-0 right-0">
                     <button className="bg-blue-500 hover:bg-blue-600 p-1 text-sm rounded-sm" onClick={() => setIsEditing(true)}> <RiEdit2Fill /> </button>
-                    <button className="bg-blue-500 hover:bg-blue-600 p-1 text-sm rounded-sm"> <FaTrashAlt /> </button>
+                    <button className="bg-blue-500 hover:bg-blue-600 p-1 text-sm rounded-sm" onClick={() => deleteText(id)}> <FaTrashAlt /> </button>
                 </div>
             </div>
             <p>{text}</p>
