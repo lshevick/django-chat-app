@@ -92,6 +92,28 @@ const Homescreen = ({ setAuth }) => {
 
     }
 
+    const userLogout = async () => {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            }
+        }
+
+        const response = await fetch('/dj-rest-auth/logout/', options).catch(handleError);
+
+        if(!response.ok) {
+            throw new Error('Network response not ok');
+        }
+
+        const json = response.json();
+
+        Cookies.remove('Authorization', `Token ${json.key}`);
+
+        setAuth(false)
+    }
+
     return (
 
         <div className={`h-screen flex flex-col justify-end ${isOpen ? 'transparent' : 'bg-slate-700'}`}>
@@ -112,7 +134,7 @@ const Homescreen = ({ setAuth }) => {
                         <button className='bg-green-700 mt-2 w-3/4 rounded-md shadow-md p-1 text-white' type='submit'>Add Room</button>
                     </form>
                 </div>
-                <button className='p-1 m-1 mx-3 bg-rose-700 w-1/4 rounded-md' type='button' onClick={() => setAuth(false)}>Logout</button>
+                <button className='p-1 m-1 mx-3 bg-rose-700 w-1/4 rounded-md' type='button' onClick={() => userLogout()}>Logout</button>
                 </div>
             </div>
 
