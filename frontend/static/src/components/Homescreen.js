@@ -63,8 +63,8 @@ const Homescreen = ({ setAuth }) => {
 
 
     const chatsHTML = chats.map(chat => (
-        <li key={chat.id} className='bg-slate-600 my-2 p-2'>
-            <span>{chat.username}</span>
+        <li key={chat.id} className='bg-blue-500 my-3 p-2 rounded-md'>
+            <span className='font-bold text-white [text-shadow:1px_1px_2px_#333]'>{chat.username}</span>
             <p>{chat.text}</p>
         </li>
     ))
@@ -97,15 +97,15 @@ const Homescreen = ({ setAuth }) => {
         <div className={`h-screen flex flex-col justify-end ${isOpen ? 'transparent' : 'bg-slate-700'}`}>
             <div className='room-list-display absolute w-full top-0'>
                 <div className='sidebar-banner bg-slate-700 flex justify-between border-b-2 border-zinc-600 py-3'>
-                    <h1 className=' mx-2  py-1 text-xl font-extrabold text-emerald-700'>Homebase Rooms</h1>
+                    <h1 className='mx-2 py-1 text-xl font-extrabold [text-shadow:1px_3px_2px_#333] text-emerald-700'>Homebase Rooms</h1>
                     <button type='button' className={`m-1 p-2 bg-slate-500 border-2 border-slate-400 transition-all rounded-3xl ${isOpen ? 'rotate-180' : ''}`} onClick={() => setIsOpen(!isOpen)}> <BsChevronLeft/> </button>
                 </div>
-                <div className={`bg-slate-700 transition-all duration-300 ${isOpen ? 'translate-x-0 z-10' : 'translate-x-full opacity-0'}`}>
+                <div className={`bg-slate-700 transition-all duration-300 py-2 ${isOpen ? 'translate-x-0 z-10' : 'translate-x-full opacity-0'}`}>
 
                 <ul className='room-list flex flex-col justify-center pl-3 h-3/4'>
                     {roomsHTML}
                 </ul>
-                <div className='flex flex-col items-start border-t-2 border-zinc-600'>
+                <div className='flex flex-col items-start border-y-2 border-zinc-600'>
                     <form onSubmit={handleSubmit} className='flex flex-col flex-center items-start w-1/2 my-3 px-3'>
                         <label htmlFor="new-room"></label>
                         <input className='p-1 rounded-md shadow-md' name='new-room' id='new-room' value={newRoom} type="text" onChange={(e) => setNewRoom(e.target.value)} placeholder='Add a New Room' />
@@ -118,7 +118,7 @@ const Homescreen = ({ setAuth }) => {
 
 
             <div className={`overflow-hidden chat-room-display bg-slate-700 h-[90%] relative bottom-0 text-white px-2 py-5 flex flex-col justify-end transition-all duration-500 ${isOpen ? 'blur z-[-10]' : ''}`}>
-                <h2 className='mx-1 absolute top-0 p-2 text-xl font-extrabold text-emerald-700 bg-slate-600 rounded-md'>{currentRoom.name}</h2>
+                <h2 className='mx-1 absolute top-0 p-2 text-xl font-extrabold [text-shadow:1px_1px_2px_#333] text-emerald-700 bg-slate-600 rounded-md'>{currentRoom.name}</h2>
                 <div className="message-list overflow-y-scroll h-5/6">
                     <ul>
                        {chatsHTML}
