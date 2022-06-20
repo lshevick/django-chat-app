@@ -47,13 +47,13 @@ const Homescreen = ({ setAuth }) => {
     // this is here to update the chat rooms when someone is sending messages and someone else is in the same chat room,
     // it updates state every 3 seconds so either person can see each others messages in real-ish time
 
-    // useEffect(() => {
-    //     const id = setInterval(() => {
-    //         getChats(currentRoom.id)
+    useEffect(() => {
+        const id = setInterval(() => {
+            getChats(currentRoom.id)
 
-    //     }, 3000)
-    //     return () => clearInterval(id)
-    // }, [chats])
+        }, 3000)
+        return () => clearInterval(id)
+    }, [chats])
 
 
     const roomsHTML = rooms.map(room => (
@@ -128,10 +128,10 @@ const Homescreen = ({ setAuth }) => {
                     <form onSubmit={handleSubmit} className='flex flex-col flex-center items-start w-1/2 my-3 px-3'>
                         <label htmlFor="new-room"></label>
                         <input className='p-1 rounded-md shadow-md' name='new-room' id='new-room' value={newRoom} type="text" onChange={(e) => setNewRoom(e.target.value)} placeholder='Add a New Room' />
-                        <button className='bg-green-700 mt-2 w-3/4 rounded-md shadow-md p-1 text-white' type='submit'>Add Room</button>
+                        <button className='bg-green-700 mt-2 w-3/4 rounded-md shadow-md p-1 text-white md:w-1/4' type='submit'>Add Room</button>
                     </form>
                 </div>
-                <button className='p-1 m-1 mx-3 bg-rose-700 w-1/4 rounded-md' type='button' onClick={() => userLogout()}>Logout</button>
+                <button className='p-1 m-1 mx-3 bg-rose-700 w-1/4 rounded-md md:w-1/6' type='button' onClick={() => userLogout()}>Logout</button>
                 </div>
             </div>
 
