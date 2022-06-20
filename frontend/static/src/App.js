@@ -9,9 +9,9 @@ function App() {
   const [auth, setAuth] = useState(!!Cookies.get('Authorization'));
 
   return (
-    <>
+    <div className='overflow-hidden'>
       {auth ? <Homescreen setAuth={setAuth}/> : <LoginView setAuth={setAuth} />}
-    </>
+    </div>
   );
 }
 
