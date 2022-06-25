@@ -39,6 +39,7 @@ const LoginForm = ({ setAuth, setScreen }) => {
         const json = await response.json()
 
         Cookies.set('Authorization', `Token ${json.key}`);
+        Cookies.set('isUser', state.username);
         setAuth(true);
     }
 

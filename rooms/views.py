@@ -2,6 +2,7 @@ from rest_framework import generics, permissions
 
 from .models import Room
 from .serializers import RoomSerializer
+from .permissions import IsAuthorOrReadOnly
 from chats.models import Chat
 from chats.serializers import ChatSerializer
 # Create your views here.
@@ -12,7 +13,6 @@ class RoomListAPIView(generics.ListCreateAPIView):
 
 class RoomChatListAPIView(generics.ListCreateAPIView):
     serializer_class = ChatSerializer
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         room = self.kwargs['room']
@@ -25,4 +25,4 @@ class RoomChatListAPIView(generics.ListCreateAPIView):
 class ChatDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = (IsAuthorOrReadOnly,)

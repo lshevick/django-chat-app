@@ -71,10 +71,12 @@ const ChatDetail = ({ id, text, username, currentRoom, setChats, chats, getChats
         <li key={id} className='bg-blue-500 my-3 p-2 rounded-md relative'>
             <div className="chat-info w-full flex justify-between m-0">
                 <span className='font-bold inline-block text-white [text-shadow:1px_1px_2px_#333]'>{username}</span>
-                <div className="button-div absolute top-0 right-0">
+                {Cookies.get('isUser') === username &&
+                    <div className="button-div absolute top-0 right-0">
                     <button className="bg-blue-500 hover:bg-blue-600 p-1 text-sm rounded-sm" onClick={() => setIsEditing(true)}> <RiEdit2Fill /> </button>
                     <button className="bg-blue-500 hover:bg-blue-600 p-1 text-sm rounded-sm" onClick={() => deleteText(id)}> <FaTrashAlt /> </button>
                 </div>
+                }
             </div>
             <p>{text}</p>
         </li>
